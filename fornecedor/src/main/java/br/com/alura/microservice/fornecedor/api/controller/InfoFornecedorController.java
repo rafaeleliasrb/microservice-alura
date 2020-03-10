@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.alura.microservice.fornecedor.api.domain.InfoForncedorDTO;
+import br.com.alura.microservice.fornecedor.api.domain.InfoFornecedorDTO;
 import br.com.alura.microservice.fornecedor.domain.repository.InfoFornecedorRepository;
 
 @RestController
-@RequestMapping("/infos")
+@RequestMapping("infos")
 public class InfoFornecedorController {
 
 	private InfoFornecedorRepository infoFornecedorRepository;
@@ -21,7 +21,7 @@ public class InfoFornecedorController {
 	}
 
 	@GetMapping(path = "/{uf}")
-	public InfoForncedorDTO recuperarInfoFornecedor(@PathVariable String uf) {
-		return new InfoForncedorDTO(infoFornecedorRepository.getByUf(uf));
+	public InfoFornecedorDTO recuperarInfoFornecedor(@PathVariable String uf) {
+		return new InfoFornecedorDTO(infoFornecedorRepository.getByUf(uf));
 	}
 }

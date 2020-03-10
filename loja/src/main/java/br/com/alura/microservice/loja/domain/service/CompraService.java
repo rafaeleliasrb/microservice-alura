@@ -1,33 +1,30 @@
 package br.com.alura.microservice.loja.domain.service;
 
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import br.com.alura.microservice.loja.api.dto.CompraForm;
 import br.com.alura.microservice.loja.api.dto.InfoFornecedorDTO;
+import br.com.alura.microservice.loja.api.dto.InfoPedidoDTO;
+import br.com.alura.microservice.loja.domain.client.FornecedorClient;
+import br.com.alura.microservice.loja.domain.model.Compra;
 
 @Service
 public class CompraService {
 
-	private RestTemplate restTemplate;
+	private final FornecedorClient fornecedorClient;
 	
 	@Autowired
-	public CompraService(RestTemplate restTemplate) {
-		this.restTemplate = restTemplate;
+	public CompraService(FornecedorClient fornecedorClient) {
+		this.fornecedorClient = fornecedorClient;
 	}
 
-	public void realizarCompra(CompraForm compra) {
+	public Compra realizarCompra(CompraForm compra) {
 		
-		ResponseEntity<InfoFornecedorDTO> infoFornecedor = 
-				restTemplate.exchange("http://fornecedor/infos/" + compra.getEndereco().getUf(), 
-				HttpMethod.GET, null, InfoFornecedorDTO.class);
+		InfoFornecedorDTO infoFornecedor = fornecedorClient.recuperarInfoFornecedor(compra.getEndereco().getUf());
+		InfoPedidoDTO pedido = fornecedorClient.realizaPedido(compra.getItens());
 		
-		System.out.println(infoFornecedor);
+		return new Compra(pedido.getId(), pedido.getTempoDePreparo(), infoFornecedor.getEndereco().toString());
 	}
 	
 }

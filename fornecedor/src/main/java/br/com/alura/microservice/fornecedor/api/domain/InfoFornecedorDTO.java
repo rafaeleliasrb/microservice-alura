@@ -1,15 +1,15 @@
 package br.com.alura.microservice.fornecedor.api.domain;
 
-import br.com.alura.microservice.fornecedor.domain.model.InfoForncedor;
+import br.com.alura.microservice.fornecedor.domain.model.InfoFornecedor;
 
-public class InfoForncedorDTO {
+public class InfoFornecedorDTO {
 
 	private Long id;
 	private String nome;
 	private String uf;
 	private String endereco;
 
-	public InfoForncedorDTO(InfoForncedor infoForncedor) {
+	public InfoFornecedorDTO(InfoFornecedor infoForncedor) {
 		this.id = infoForncedor.getId();
 		this.nome = infoForncedor.getNome();
 		this.uf = infoForncedor.getUf();

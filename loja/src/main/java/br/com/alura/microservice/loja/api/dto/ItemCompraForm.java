@@ -9,7 +9,15 @@ public class ItemCompraForm {
 		this.id = id;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+	
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public Integer getQuantidade() {
+		return quantidade;
 	}
 }

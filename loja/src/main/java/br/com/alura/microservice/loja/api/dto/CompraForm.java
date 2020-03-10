@@ -18,4 +18,8 @@ public class CompraForm {
 	public EnderecoForm getEndereco() {
 		return endereco;
 	}
+	
+	public List<ItemCompraForm> getItens() {
+		return itens;
+	}
 }

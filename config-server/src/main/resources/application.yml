@@ -6,5 +6,5 @@ spring:
     config:
       server:
         git:
-          search-paths: configuration/fornecedor
           uri: https://github.com/rafaeleliasrb/microservice-alura
+          search-paths: configuration/fornecedor
