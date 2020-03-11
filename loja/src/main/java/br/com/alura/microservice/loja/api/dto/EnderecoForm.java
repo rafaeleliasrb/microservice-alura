@@ -10,8 +10,16 @@ public class EnderecoForm {
 		this.logradouro = logradouro;
 	}
 	
+	public String getLogradouro() {
+		return logradouro;
+	}
+	
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public String getNumero() {
+		return numero;
 	}
 	
 	public void setUf(String uf) {

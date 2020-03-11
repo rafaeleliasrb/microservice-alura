@@ -52,4 +52,10 @@ public class ItemDoPedidoForm {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemDoPedidoForm [id=" + id + ", quantidade=" + quantidade + "]";
+	}
+	
 }

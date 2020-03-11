@@ -19,5 +19,5 @@ public interface FornecedorClient {
 	public InfoFornecedorDTO recuperarInfoFornecedor(@PathVariable String uf);
 	
 	@PostMapping(path = "/pedidos")
-	public InfoPedidoDTO realizaPedido(@RequestBody List<ItemCompraForm> produtos);
+	public InfoPedidoDTO realizarPedido(@RequestBody List<ItemCompraForm> produtos);
 }
