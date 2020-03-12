@@ -29,4 +29,9 @@ public class EnderecoForm {
 	public String getUf() {
 		return uf;
 	}
+
+	@Override
+	public String toString() {
+		return "EnderecoForm [logradouro=" + logradouro + ", numero=" + numero + ", uf=" + uf + "]";
+	}
 }

@@ -11,7 +11,7 @@ public class Compra {
 		this.tempoDePreparo = tempoDePreparo;
 		this.enderecoDestino = enderecoDestino;
 	}
-
+	
 	public Long getPedidoId() {
 		return pedidoId;
 	}
