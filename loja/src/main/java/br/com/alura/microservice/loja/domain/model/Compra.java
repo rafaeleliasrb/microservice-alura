@@ -1,10 +1,18 @@
 package br.com.alura.microservice.loja.domain.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Compra {
 
+	@Id
 	private Long pedidoId;
+	
 	private Integer tempoDePreparo;
 	private String enderecoDestino;
+	
+	public Compra() {}
 	
 	public Compra(Long pedidoId, Integer tempoDePreparo, String enderecoDestino) {
 		this.pedidoId = pedidoId;

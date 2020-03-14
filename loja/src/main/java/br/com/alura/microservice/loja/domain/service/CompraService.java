@@ -12,6 +12,8 @@ import br.com.alura.microservice.loja.api.dto.InfoFornecedorDTO;
 import br.com.alura.microservice.loja.api.dto.InfoPedidoDTO;
 import br.com.alura.microservice.loja.domain.client.FornecedorClient;
 import br.com.alura.microservice.loja.domain.model.Compra;
+import br.com.alura.microservice.loja.domain.repository.CompraRepository;
+import javassist.NotFoundException;
 
 @Service
 public class CompraService {
@@ -19,13 +21,21 @@ public class CompraService {
 	private static final Logger LOG = LoggerFactory.getLogger(CompraService.class);
 	
 	private final FornecedorClient fornecedorClient;
+	private final CompraRepository compraRepository;
 	
 	@Autowired
-	public CompraService(FornecedorClient fornecedorClient) {
+	public CompraService(FornecedorClient fornecedorClient, CompraRepository compraRepository) {
 		this.fornecedorClient = fornecedorClient;
+		this.compraRepository = compraRepository;
 	}
 
-	@HystrixCommand(fallbackMethod = "realizarCompraFallback")
+	@HystrixCommand(threadPoolKey = "buscarCompraThreadPool")
+	public Compra buscarCompra(Long idCompra) throws NotFoundException {
+		return compraRepository.findByPedidoId(idCompra)
+				.orElseThrow(() -> new NotFoundException("Compra não encontrada"));
+	}
+	
+	@HystrixCommand(fallbackMethod = "realizarCompraFallback", threadPoolKey = "realizarCompraThreadPool")
 	public Compra realizarCompra(CompraForm compra) {
 		
 		LOG.info("Buscar o infoFornecedor");
@@ -34,7 +44,9 @@ public class CompraService {
 		LOG.info("Realizar o pedido");
 		InfoPedidoDTO pedido = fornecedorClient.realizarPedido(compra.getItens());
 		
-		return new Compra(pedido.getId(), pedido.getTempoDePreparo(), infoFornecedor.getEndereco());
+		Compra compraSalva = new Compra(pedido.getId(), pedido.getTempoDePreparo(), infoFornecedor.getEndereco());
+		
+		return compraRepository.save(compraSalva);
 	}
 	
 	public Compra realizarCompraFallback(CompraForm compra) {
