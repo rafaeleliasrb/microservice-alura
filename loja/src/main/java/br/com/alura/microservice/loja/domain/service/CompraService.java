@@ -38,8 +38,8 @@ public class CompraService {
 	}
 
 	@HystrixCommand(threadPoolKey = "buscarCompraThreadPool")
-	public Compra buscarCompra(Long idCompra) throws NotFoundException {
-		return compraRepository.findByPedidoId(idCompra)
+	public Compra buscarCompra(Long idPedido) throws NotFoundException {
+		return compraRepository.findByPedidoId(idPedido)
 				.orElseThrow(() -> new NotFoundException("Compra não encontrada"));
 	}
 	
